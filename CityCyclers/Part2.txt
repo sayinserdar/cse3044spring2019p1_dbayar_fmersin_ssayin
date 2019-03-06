@@ -1,0 +1,21 @@
+
+Waterfall as a Software Process Model
+
+Since, we do not have any real customers our specified requirements will not change throughout the development process which makes iterative development a bit of overkill. For this reason, we decided to work on waterfall as our Software Process Model.In addition to that, If the requirements are stable and obvious. It’s the fastest Software Process Model unlike the iterative development in our case.
+
+
+Specialized Ride
+
+
+This application is much more complex comparing to our application and system. They track all the movement data and the app allow you to share data to your partners. This makes this application a little bloated.
+On the other hand we have no idea what kind of backend structure they have. We are aiming to make our application as flexible as possible in order to make it compatible with future application which may be developed afterwards. In order to accomplish this goal, we are going to implement REST API which will be compatible with all sorts of  codebase.
+
+Urbee
+
+This is not the direct opponent for our application since we couldn’t find another real opponent we are going to review this application as similar application. This application aims for bike sharing with others by using smartphones. This application is also quite complex comparing to our application. They have payment process embedded into their application.
+
+
+
+Firdevs Mersin - 150155063
+Dilara Bayar - 150115022
+Serdar Sayın - 150115068
