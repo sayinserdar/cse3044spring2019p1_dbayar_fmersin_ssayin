@@ -7,6 +7,7 @@ import {
   Image, 
   TextInput, 
   TouchableOpacity} from 'react-native';
+  import { Container, Header, Content, ListItem, CheckBox, Body } from 'native-base';
 
 
 export class LoginScreen extends React.Component {
@@ -32,6 +33,7 @@ export class LoginScreen extends React.Component {
     return (
       <ImageBackground source={require('../../assets/MainPage.png')} style={styles.container}>
          <Image source={require('../../assets/CityCyclersLogo.png')} style={{width: 150, height: 150, marginBottom:20}} />
+         <CheckBox checked={true} />
            <TextInput
              style={styles.inputContainer}
              placeholder=" username"  
