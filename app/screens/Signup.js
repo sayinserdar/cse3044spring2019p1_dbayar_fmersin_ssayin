@@ -1,7 +1,7 @@
 
 import React from "react";
-import { View, Text, StyleSheet} from "react-native";
-import { Container, Content, Item, Label, Input, DatePicker, Picker, Form, Icon } from "native-base";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { Container, Content, Item, Label, Input, DatePicker, Picker, Form, Icon,  Button } from "native-base";
 
 export class SignupScreen extends React.Component {
 
@@ -27,22 +27,24 @@ export class SignupScreen extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
+      <ImageBackground source={require('../../assets/signupbackground.png')} style={styles.container}>
        <Content>
+         <View style={{height: '60%', marginTop: 50}}>
          <Text style={styles.baseText}> Name</Text>
            <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+              <Input style={{color:'#8c52ff'}}/>
            </Item>
          <Text style={styles.baseText}>Choose your user name</Text>
          <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+             <Input style={{color:'#8c52ff'}}/>
            </Item>
          <Text style={styles.baseText}>Create a password</Text>
          <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+              <Input style={{color:'#8c52ff'}}/>
            </Item>
          <Text style={styles.baseText}>Confirm a password</Text>
          <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+            <Input style={{color:'#8c52ff'}}/>
            </Item>
          <Text style={styles.baseText}>Birthday</Text>
          <DatePicker
@@ -55,12 +57,12 @@ export class SignupScreen extends React.Component {
             animationType={"fade"}
             androidMode={"default"}
             placeHolderText="Select date"
-            textStyle={{ color: "black", fontWeight: 'bold', alignSelf: 'center' }}
-            placeHolderTextStyle={{ color: "#d3d3d3", alignSelf: 'center'}}
+            textStyle={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}
+            placeHolderTextStyle={{ color: "#8c52ff", alignSelf: 'center'}}
             onDateChange={this.setDate}
             disabled={false}
             />
-            <Text style={{ color: "black", fontWeight: 'bold', alignSelf: 'center' }}>
+            <Text style={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}>
               Date: {this.state.chosenDate.toString().substr(4, 12)}
             </Text>
          <Text style={styles.baseText}>Gender</Text>
@@ -70,13 +72,13 @@ export class SignupScreen extends React.Component {
               placeholder="Select your gender"
               iosIcon={<Icon name="arrow-down" />}
               placeholder="Select your gender"
-              textStyle={{ color: "#ffffff", fontWeight: 'bold', alignSelf: 'center' }}
+              textStyle={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}
               itemStyle={{
                 backgroundColor: "#ffffff",
                 marginLeft: 10,
                 paddingLeft: 10
               }}
-              itemTextStyle={{ color: '#788ad2' }}
+              itemTextStyle={{ color: '#8c52ff' }}
               style={{ width: '80%', alignSelf: 'center' }}
               selectedValue={this.pick.selected}
               onValueChange={this.onValueChange.bind(this)}
@@ -88,13 +90,18 @@ export class SignupScreen extends React.Component {
 
          <Text style={styles.baseText}>Mobile Phone</Text>
          <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+             <Input style={{color:'#8c52ff'}}/>
            </Item>
          <Text style={styles.baseText}>Email Address</Text>
          <Item full rounded inlineLabel style={styles.item}>
-             <Input />
+             <Input style={{color:'#8c52ff'}}/>
            </Item>
+           <Button full light style={styles.placeButton} onPress={() => this.props.navigation.navigate('Signup')}>
+            <Text >Start Now!</Text>
+          </Button>
+          </View>
        </Content>
+       </ImageBackground>
       </Container>
     );
   }
@@ -103,13 +110,13 @@ export class SignupScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
      flex:1,
-     backgroundColor: '#0a5449',
+     backgroundColor: '#8c52ff',
      justifyContent: 'center',
   },
   baseText: {
     fontFamily: 'sans-serif',
-    color:"white",
-    fontSize: 15,
+    color:'#8c52ff',
+    fontSize: 14,
     marginLeft: 35,
     marginBottom: 3,
   },
@@ -119,13 +126,16 @@ const styles = StyleSheet.create({
     height: '5%',
     alignSelf: 'center',
     marginBottom: 10,
+    backgroundColor: "white"
   },
   placeButton: {
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
     borderRadius: 5, 
-    width: '95%', 
+    width: '30%',
+    height: '5%', 
     marginBottom:10,
     marginTop: 10,
+    marginRight: 20,
   },
 });
 

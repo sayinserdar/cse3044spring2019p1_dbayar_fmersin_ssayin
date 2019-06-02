@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
-  import { Container, Header, Content, ListItem, CheckBox, Body, Form, Input, Label, Item, Button} from 'native-base';
-
+import { Container, Header, Content, ListItem, CheckBox, Body, Form, Input, Label, Item, Button} from 'native-base';
 
 export class LoginScreen extends React.Component {
   render() {
     return (
       <Container>
-        <ImageBackground source={require('../../assets/LoginBackground.png')} style={styles.container}>
+        <ImageBackground source={require('../../assets/loginbackground.png')} style={styles.container}>
           <Item floatingLabel style={{marginBottom: 10}}>
             <Label style={styles.baseText}>Username</Label>
             <Input />
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
   placeButton: {
     alignSelf: 'center',
     borderRadius: 5, 
-    width: '95%', 
+    width: '85%', 
     marginBottom:10,
     marginTop: 10,
   },

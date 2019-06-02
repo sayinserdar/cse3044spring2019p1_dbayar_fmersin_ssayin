@@ -1,69 +1,53 @@
-import React, { Component } from 'react';
-import { Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right, Footer, FooterTab } from 'native-base';
+import React, { Component } from "react";
+import {
+    View,
+    Text,
+    StyleSheet,
+} from "react-native";
+
+import { Container, Content, Footer, FooterTab, Button, Icon } from 'native-base'
+import EventComponent from '../EventComponent'
+
+
 export class HomeScreen extends Component {
 
-  render() {
-    return (
-      <Container>
-        <Header />
-        <Content>
-          <Card>
-            <CardItem>
-              <Left>
-               <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
-                <Thumbnail source={{uri: 'https://images.unsplash.com/photo-1557100955-93b2fb57c317?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'}} />
-                </TouchableOpacity>
-                <Body>
-                  <Text>Serdar's Event</Text>
-                  <Text note>Istanbul/ Turkey</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem cardBody>
-              <Image source={{uri: 'https://images.unsplash.com/photo-1528629297340-d1d466945dc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1395&q=80'}} style={{height: 200, width: null, flex: 1}}/>
-            </CardItem>
-            <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 likes</Text>
+    render() {
+        return (
+            <Container style={styles.container}>
+                <Content>
+                    <EventComponent username="dilarabayar" imageSource="1" likes="101" profileSource="1" comments="5" time="6"/>
+                    <EventComponent username="serdarsayın" imageSource="2" likes="201" profileSource="2" comments="6"  time="2" />
+                    <EventComponent username="firdevsmersin" imageSource="3" likes="301" profileSource="3" comments="10"  time="1"/>
+                </Content>
+            <Footer>
+              <FooterTab>
+                <Button onPress={() => this.props.navigation.navigate('Home')}  active >
+                  <Icon name="home" />
+                  <Text style={styles.barText}> Home</Text>
                 </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
+                <Button onPress={() => this.props.navigation.navigate('Profile')}>
+                  <Icon  name="person" />
+                  <Text style={styles.barText}> Profile</Text>
                 </Button>
-              </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
-            </CardItem>
-          </Card>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button onPress={() => this.props.navigation.navigate('Home')} active>
-              <Icon active name="home" />
-            </Button>
-            <Button onPress={() => this.props.navigation.navigate('Profile')}>
-              <Icon name="person" />
-            </Button>
-            <Button>
-              <Icon name="close-circle" />
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
-    );
-  }
+                <Button>
+                  <Icon name="close-circle" />
+                  <Text style={styles.barText}> Exit</Text>
+                </Button>
+             </FooterTab>
+            </Footer>   
+            </Container>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  barText: {
-    color: 'blue',
-    fontSize: 10,
-    fontWeight: 'bold',
-  }
+    container: {
+        flex: 1,
+        backgroundColor: '#bde5eb'
+    },
+    barText: {
+        color: 'white',
+        fontSize: 10,
+        fontWeight: 'bold',
+    }
 });
