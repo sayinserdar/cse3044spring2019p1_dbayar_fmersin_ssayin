@@ -1,0 +1,22 @@
+CREATE TABLE USER_(
+    id int  PRIMARY KEY AUTO_INCREMENT,
+    name varchar(50),
+    username varchar(50),
+    password_ varchar(50),
+    birthday date,
+    gender varchar(8),
+    phone_number varchar(15),
+    email varchar(50)
+    
+);
+ CREATE TABLE EVENT_(
+  id int PRIMARY KEY AUTO_INCREMENT,
+   event_name varchar(50),
+     vote int,
+     description varchar(50),
+     map_id int,
+     event_comment varchar(50),
+     user_id int,
+     FOREIGN KEY user_id REFERENCES USER_(id)
+ );
+
