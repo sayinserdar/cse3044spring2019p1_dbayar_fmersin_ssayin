@@ -69,14 +69,14 @@ const styles = StyleSheet.create({
       
   },
   baseText: {
-    fontFamily: 'sans-serif',
+    // fontFamily: 'sans-serif',
     fontSize: 15,
     color: '#7d7171',
     fontWeight: 'bold',
     marginBottom: 10
   },
   topText: {
-    fontFamily: 'sans-serif',
+    // fontFamily: 'sans-serif',
     fontSize: 15,
     color: '#7d7171',
     fontWeight: 'bold',

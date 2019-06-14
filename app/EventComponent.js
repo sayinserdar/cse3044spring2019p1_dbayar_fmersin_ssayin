@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     baseText: {
         marginLeft: 5,
-        fontFamily: 'sans-serif',
+        // fontFamily: 'sans-serif',
         fontSize: 15, 
     },
 });

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
      alignItems: 'center',
   },
   baseText: {
-    fontFamily: 'sans-serif',
+    // fontFamily: 'sans-serif',
     color:"white",
   },
   placeButton: {

@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
      justifyContent: 'center',
   },
   baseText: {
-    fontFamily: 'sans-serif',
+    // fontFamily: 'sans-serif',
     color:'#8c52ff',
     fontSize: 14,
     marginLeft: 35,
