@@ -1,10 +1,11 @@
 var mysql = require('mysql');
 
- var db = mysql.createConnection({
+const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'CITY_CYCLER'
+  database: 'citycyclers',
+  insecureAuth : true
  });
  
 db.connect((err) => {
@@ -15,8 +16,4 @@ db.connect((err) => {
   console.log('Connection established');
 });
 
-db.end((err) => {
-
-});
-
-
+module.exports = db;

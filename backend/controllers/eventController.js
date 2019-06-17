@@ -1,25 +1,21 @@
 let event = require('../modals/eventModel');
 
 module.exports = {
-  listEvent(req, res) {
-    event.getAllEvent().then((data) => {
-      res.send(data);
-    });
+  async listEvent(req, res) {
+    try {
+   var data = await event.getAllEvent();
+   res.send(data);
+  } catch(err) {
+    console.log(err);
+  }
   },
   createEvent(req, res) {
-    event.insertEvent(req.body).then((data) => {
-      res.send(data);
-    });
+    event.insertEvent(req.body);
   },
   deleteEvent(req, res) {
-    event.deleteEvent().then((data) => {
-      res.send(data);
-    });
+    event.deleteEvent();
   },
   updateEvent(req, res) {
-    event.updateEvent().then((data) => {
-      res.send(data);
-    });
+    event.updateEvent();
   }
-
 };
