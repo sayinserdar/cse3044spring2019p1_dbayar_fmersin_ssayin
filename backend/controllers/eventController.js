@@ -1,21 +1,40 @@
-let event = require('../modals/eventModel');
+let event = require("../modals/eventModel");
 
 module.exports = {
   async listEvent(req, res) {
     try {
-   var data = await event.getAllEvent();
-   res.send(data);
-  } catch(err) {
-    console.log(err);
-  }
+      var data = await event.getAllEvent();
+      res.send(data);
+    } catch (err) {
+      console.log(err);
+    }
   },
-  createEvent(req, res) {
-    event.insertEvent(req.body);
+  async createEvent(req, res) {
+    try {
+      var data = await event.insertEvent(req.body);
+      res.send(data);
+    } catch (err) {
+      console.log(err);
+    }
+    
   },
-  deleteEvent(req, res) {
-    event.deleteEvent();
+  async deleteEvent(req, res) {
+    //  Id needs to be passed to this function
+    try {
+      let data  = await event.deleteEvent();
+      res.send(data);
+    } catch (err) {
+      console.log(err);
+    } 
   },
-  updateEvent(req, res) {
-    event.updateEvent();
+  async updateEvent(req, res) {
+       //  Id needs to be passed to this function
+       try {
+       let data = await event.updateEvent();
+        res.send(data);
+      } catch (err) {
+        console.log(err);
+      } 
+    
   }
 };

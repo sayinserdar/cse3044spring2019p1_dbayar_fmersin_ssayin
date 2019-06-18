@@ -2,12 +2,22 @@
 import React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { Container, Content, Item, Label, Input, DatePicker, Picker, Form, Icon,  Button } from "native-base";
+import axios from 'axios';
 
 export class SignupScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { chosenDate: new Date() };
+    this.state = { 
+      chosenDate: new Date(),
+      name: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      gender: '',
+      phone_number: '',
+      email: ''
+     };
     this.setDate = this.setDate.bind(this);
     this.pick = {
       selected: undefined
@@ -22,6 +32,22 @@ export class SignupScreen extends React.Component {
 
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
+  }
+  signup() {
+    axios.post('http://localhost:8080/signup', {
+      name: this.state.name,
+      username: this.state.username,
+      password: this.state.password,
+      phone_number: this.state.phone_number,
+      email: this.state.email,
+      gender: this.state.gender
+    })
+    .then(function (response) {
+      this.props.navigation.navigate('Home');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {

@@ -1,31 +1,34 @@
 let user = require('../modals/userModel');
 
-
-  exports.listUser = function(req, res) {
-    user.getAllUser().then((data) => {
-    res.send(data);
-    });
-  };
-  exports.createUser = function(req, res) {
-    
-    user.insertUser(req.body).then((data) => {
-      console.log(req.body);
+  exports.listUser = async function(req, res) {
+    try {
+      var data = await user.getAllUser();
       res.send(data);
-    });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  exports.deleteUser =  function(req, res) {
-    console.log(req.body.id);
-    user.deleteUser(req.body.id)
-      .then((data) => {
+  exports.createUser = async function(req, res) {
+    try {
+      var data = await user.insertUser(req.body);
       res.send(data);
-
-    })
-      .catch((err) => {
-        console.log(err);
-      });
+    } catch (err) {
+      console.log(err);
+    }
   };
-  exports.updateUser = function (req, res) {
-    user.updateUser().then((data) => {
+  exports.deleteUser = async function(req, res) {
+    try {
+      var data = await user.deleteUser(req.body.id);
       res.send(data);
-    });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  exports.updateUser = async function (req, res) {
+    try {
+      var data = await uuser.updateUser(req.body.id)
+      res.send(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
