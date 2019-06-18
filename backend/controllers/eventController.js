@@ -11,6 +11,7 @@ module.exports = {
   },
   async createEvent(req, res) {
     try {
+      console.log("huh",req.body);
       var data = await event.insertEvent(req.body);
       res.send(data);
     } catch (err) {
@@ -19,18 +20,16 @@ module.exports = {
     
   },
   async deleteEvent(req, res) {
-    //  Id needs to be passed to this function
     try {
-      let data  = await event.deleteEvent();
+      let data  = await event.deleteEvent(req.body.id);
       res.send(data);
     } catch (err) {
       console.log(err);
     } 
   },
   async updateEvent(req, res) {
-       //  Id needs to be passed to this function
        try {
-       let data = await event.updateEvent();
+       let data = await event.updateEvent(req.body);
         res.send(data);
       } catch (err) {
         console.log(err);

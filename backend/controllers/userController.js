@@ -26,7 +26,7 @@ let user = require('../modals/userModel');
   };
   exports.updateUser = async function (req, res) {
     try {
-      var data = await uuser.updateUser(req.body.id)
+      var data = await user.updateUser(req.body)
       res.send(data);
     } catch (err) {
       console.log(err);

@@ -23,6 +23,7 @@ app.use('/', routes);
 app.use('/event', EventRouter);
 app.use('/user', UserRouter);
 
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 

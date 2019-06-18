@@ -1,10 +1,13 @@
 let login = require('../modals/loginModel');
 
 module.exports = {
-  checkPassword(req, res) {
-    event.checkPassword().then((data) => {
+ async checkPassword(req, res) {
+    try {
+      let data = await login.checkPassword(req.body);
       res.send(data);
-    });
+    }catch(err) {
+      res.send(err);
+    }
   },
   
 

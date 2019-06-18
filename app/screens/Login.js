@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, Text, View, Image, TextInput, TouchableOpacity} from 'react-native';
 import { Container, Header, Content, ListItem, CheckBox, Body, Form, Input, Label, Item, Button} from 'native-base';
-import axios from 'axios';
 
 export class LoginScreen extends React.Component {
   constructor(props) {
@@ -9,43 +8,80 @@ export class LoginScreen extends React.Component {
 
     this.state = { 
 			username: '',
-			password: ''
+      password_: '',
+      errorMessage: ''
     };
     
   }
   login() {
-    axios.post('http://localhost:8080/login', {
-      username: this.state.username,
-      password: this.state.password
+    fetch('http://192.168.1.41:3000/user/login',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password_: this.state.password_,
+      }),
+     })
+    .then(response => response.json())
+    .then((response) => {
+      if(response.length > 0) {
+        this.props.navigation.navigate('Home');
+      }
+      else {
+        this.setState({errorMessage: "No user found"});
+      }
     })
-    .then(function (response) {
-      this.props.navigation.navigate('Home');
-    })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      console.log('no user');
+      console.error(error);
     });
   }
   render() {
     return (
       <Container>
-        <ImageBackground source={require('../../assets/loginbackground.png')} style={styles.container}>
-          <Item floatingLabel style={{marginBottom: 10}}>
-            <Label style={styles.baseText}>Username</Label>
-            {/* Make sure about the usage of textinput */}
-            <TextInput value={this.state.userName}
-						onChangeText={(value) => this.setState({username: value})}>
-            </TextInput>
-          </Item>
-          <Item floatingLabel style={{marginBottom: 40}} >
-            <Label style={styles.baseText}> Password</Label>
-            <Input />
-          </Item>
-          <Button full bordered light style={styles.placeButton} onPress={this.login()}>
+        <ImageBackground
+          source={require("../../assets/loginbackground.png")}
+          style={styles.container}
+        >
+          <Text>
+            {this.state.errorMessage}
+          </Text>
+        <TextInput
+              style={{  height: 40,width: 300,borderColor: 'white', borderWidth: 1 }}
+              onChangeText={username => this.setState({ username })}
+              placeholder = "username"
+              value={this.state.username}
+            />
+         <TextInput
+              style={{  height: 40,width: 300,borderColor: 'white', borderWidth: 1 }}
+              onChangeText={password_ => this.setState({ password_ })}
+              placeholder = "Password"
+              value={this.state.password_}
+            />
+          <Button
+            full
+            bordered
+            light
+            style={styles.placeButton}
+            onPress={() => {
+              this.login();
+            }}
+          >
             <Text style={styles.baseText}>LOG IN</Text>
           </Button>
-          <Text style={styles.baseText} >or</Text>
-          <Button full bordered light style={styles.placeButton} onPress={() => this.props.navigation.navigate('Signup')}>
-            <Text style={styles.baseText} >SIGN UP</Text>
+          <Text style={styles.baseText}>or</Text>
+          <Button
+            full
+            bordered
+            light
+            style={styles.placeButton}
+            onPress={() => this.props.navigation.navigate("Signup")}
+          >
+            <Text style={styles.baseText}>SIGN UP</Text>
           </Button>
         </ImageBackground>
       </Container>

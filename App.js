@@ -5,14 +5,15 @@ import { LoginScreen } from './app/screens/Login';
 import { HomeScreen } from './app/screens/Home';
 import { SignupScreen } from './app/screens/Signup';
 import { ProfileScreen } from './app/screens/Profile';
+import { EventScreen } from './app/screens/Event';
 
 const MainNavigator = createStackNavigator(
   {
   Home: {screen: HomeScreen},
   Login: {screen: LoginScreen},
   Profile: {screen: ProfileScreen},
-  Signup: {screen: SignupScreen}
-
+  Signup: {screen: SignupScreen},
+  Event: {screen: EventScreen}
   },
   {
     initialRouteName: "Login"

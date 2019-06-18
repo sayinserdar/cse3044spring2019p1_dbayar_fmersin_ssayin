@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-
 import {
   Container,
   Content,
   Footer,
   FooterTab,
   Button,
-  Icon
+  Icon,
+  Fab
 } from "native-base";
 import EventComponent from "../EventComponent";
 
@@ -15,49 +15,62 @@ export class HomeScreen extends Component {
 constructor(props) {
    super(props);
    this.state = {
-       events = []
+       events: []
    }  
 }
   componentDidMount() {
-    axios
-      .get("http://localhost:3000/events", {
-
+     fetch('http://192.168.1.41:3000/event',{
+      method: 'GET',
+     })
+    .then(response => response.json())
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        events: response
       })
-      .then(function(response) {
-        
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
-  render() {
-    return (
-      <Container style={styles.container}>
-        <Content>
-          <EventComponent
-            username="dilarabayar"
+
+  renderButtons() {
+    return this.state.events.map((item) => {
+        return (
+           
+            <EventComponent
+            username={item.event_name}
             imageSource="1"
             likes="101"
             profileSource="1"
             comments="5"
             time="6"
           />
-          <EventComponent
-            username="serdarsayın"
-            imageSource="2"
-            likes="201"
-            profileSource="2"
-            comments="6"
-            time="2"
-          />
-          <EventComponent
-            username="firdevsmersin"
-            imageSource="3"
-            likes="301"
-            profileSource="3"
-            comments="10"
-            time="1"
-          />
+        );
+    });
+}
+newEvent() {
+  this.props.navigation.navigate("Event");
+}
+  render() {
+    return (
+      <Container style={styles.container}>
+
+        <Content>
+       
+        {
+                this.renderButtons()
+            }
+          <Fab
+            active={this.state.active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: '#5067FF' }}
+            position="bottomRight"
+            onPress={() => {this.newEvent()}}>
+            <Icon name="add" />
+          </Fab>
         </Content>
         <Footer>
           <FooterTab>
