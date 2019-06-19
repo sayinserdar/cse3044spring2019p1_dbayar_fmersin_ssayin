@@ -1,133 +1,138 @@
-
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import { Container, Content, Item, Label, Input, DatePicker, Picker, Form, Icon,  Button } from "native-base";
-import axios from 'axios';
+import { View, Text, StyleSheet, ImageBackground, TextInput } from "react-native";
+import {
+  Container,
+  Content,
+  Item,
+  Label,
+  Input,
+  DatePicker,
+  Picker,
+  Form,
+  Icon,
+  Button
+} from "native-base";
+import axios from "axios";
 
 export class SignupScreen extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { 
-      chosenDate: new Date(),
-      name: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      gender: '',
-      phone_number: '',
-      email: ''
-     };
-    this.setDate = this.setDate.bind(this);
-    this.pick = {
-      selected: undefined
+    this.state = {
+      name: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+      gender: "",
+      phone_number: "",
+      email: "",
+      birthyear: ""
     };
   }
 
-  onValueChange(value) {
-    this.setState({
-      selected: value
-    });
-  }
-
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
-  }
+  // this.props.navigation.navigate('Home');
   signup() {
-    axios.post('http://localhost:8080/signup', {
-      name: this.state.name,
-      username: this.state.username,
-      password: this.state.password,
-      phone_number: this.state.phone_number,
-      email: this.state.email,
-      gender: this.state.gender
+    fetch("http://172.20.10.11:3000/user/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        username: this.state.username,
+        password_: this.state.password,
+        phone_number: this.state.phone_number,
+        email: this.state.email,
+        gender: this.state.gender,
+        birthyear: this.state.birthyear
+      })
     })
-    .then(function (response) {
-      this.props.navigation.navigate('Home');
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(response => response.json())
+      .then(response => {
+        if (response.length > 0) {
+          this.props.navigation.navigate("Home");
+        } else {
+          this.setState({ errorMessage: "Signup is not successful" });
+        }
+      })
+      .catch(error => {
+        console.log("no user");
+        console.error(error);
+      });
   }
 
   render() {
     return (
       <Container style={styles.container}>
-      <ImageBackground source={require('../../assets/signupbackground.png')} style={styles.container}>
-       <Content>
-         <View style={{height: '60%', marginTop: 50}}>
-         <Text style={styles.baseText}> Name</Text>
-           <Item full rounded inlineLabel style={styles.item}>
-              <Input style={{color:'#8c52ff'}}/>
-           </Item>
-         <Text style={styles.baseText}>Choose your user name</Text>
-         <Item full rounded inlineLabel style={styles.item}>
-             <Input style={{color:'#8c52ff'}}/>
-           </Item>
-         <Text style={styles.baseText}>Create a password</Text>
-         <Item full rounded inlineLabel style={styles.item}>
-              <Input style={{color:'#8c52ff'}}/>
-           </Item>
-         <Text style={styles.baseText}>Confirm a password</Text>
-         <Item full rounded inlineLabel style={styles.item}>
-            <Input style={{color:'#8c52ff'}}/>
-           </Item>
-         <Text style={styles.baseText}>Birthday</Text>
-         <DatePicker
-            defaultDate={new Date(2018, 4, 4)}
-            minimumDate={new Date(1945, 1, 1)}
-            maximumDate={new Date(2018, 12, 31)}
-            locale={"en"}
-            timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
-            animationType={"fade"}
-            androidMode={"default"}
-            placeHolderText="Select date"
-            textStyle={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}
-            placeHolderTextStyle={{ color: "#8c52ff", alignSelf: 'center'}}
-            onDateChange={this.setDate}
-            disabled={false}
+        <ImageBackground
+          source={require("../../assets/signupbackground.png")}
+          style={styles.container}
+        >
+          <Content>
+            <View style={{ height: "60%", marginTop: 50, textAlignVertical:"center", marginLeft: 40 }}>
+            <TextInput
+              style={{  height: 40,width: 300,borderColor: 'white', borderWidth: 1 }}
+              style={styles.textInput}
+              onChangeText={name => this.setState({ name })}
+              placeholder = "Name"
+              value={this.state.name}
             />
-            <Text style={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}>
-              Date: {this.state.chosenDate.toString().substr(4, 12)}
-            </Text>
-         <Text style={styles.baseText}>Gender</Text>
-         <Form>
-           <Picker
-              mode="dropdown"
-              placeholder="Select your gender"
-              iosIcon={<Icon name="arrow-down" />}
-              placeholder="Select your gender"
-              textStyle={{ color: "#8c52ff", fontWeight: 'bold', alignSelf: 'center' }}
-              itemStyle={{
-                backgroundColor: "#ffffff",
-                marginLeft: 10,
-                paddingLeft: 10
-              }}
-              itemTextStyle={{ color: '#8c52ff' }}
-              style={{ width: '80%', alignSelf: 'center' }}
-              selectedValue={this.pick.selected}
-              onValueChange={this.onValueChange.bind(this)}
-            >
-              <Picker.Item label="Woman" value="key0" />
-              <Picker.Item label="Man" value="key1" />
-            </Picker>
-          </Form>
-
-         <Text style={styles.baseText}>Mobile Phone</Text>
-         <Item full rounded inlineLabel style={styles.item}>
-             <Input style={{color:'#8c52ff'}}/>
-           </Item>
-         <Text style={styles.baseText}>Email Address</Text>
-         <Item full rounded inlineLabel style={styles.item}>
-             <Input style={{color:'#8c52ff'}}/>
-           </Item>
-           <Button full light style={styles.placeButton} onPress={() => this.props.navigation.navigate('Signup')}>
-            <Text >Start Now!</Text>
+            <TextInput
+              style={{  height: 40,width: 300,borderColor: 'white', borderWidth: 1 }}
+              onChangeText={username => this.setState({ username })}
+              style={styles.textInput}
+              placeholder = "Username"
+              value={this.state.username}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={password => this.setState({ password })}
+              placeholder = "Password"
+              value={this.state.password}
+            />
+             <TextInput
+              style={styles.textInput}
+              onChangeText={confirmPassword => this.setState({ confirmPassword })}
+              placeholder = "Confirm Password"
+              value={this.state.confirmPassword}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={phone_number => this.setState({ phone_number })}
+              placeholder = "Phone Number"
+              value={this.state.phone_number}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={email => this.setState({ email })}
+              placeholder = "Email"
+              value={this.state.email}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={gender => this.setState({ gender })}
+              placeholder = "Gender"
+              value={this.state.gender}
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText={birthyear => this.setState({ birthyear })}
+              placeholder = "Birth Year"
+              value={this.state.birthyear}
+            />
+               <Button
+            full
+            bordered
+            light
+            style={styles.placeButton}
+            onPress={() => this.signup()}
+          >
+            <Text style={styles.baseText}>Signup</Text>
           </Button>
-          </View>
-       </Content>
-       </ImageBackground>
+              
+            </View>
+          </Content>
+        </ImageBackground>
       </Container>
     );
   }
@@ -135,34 +140,42 @@ export class SignupScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-     flex:1,
-     backgroundColor: '#8c52ff',
-     justifyContent: 'center',
+    flex: 1,
+    backgroundColor: "#8c52ff",
+    justifyContent: "center"
   },
   baseText: {
     // fontFamily: 'sans-serif',
-    color:'#8c52ff',
+    color: "#8c52ff",
     fontSize: 14,
     marginLeft: 35,
-    marginBottom: 3,
+    marginBottom: 3
   },
   item: {
     borderRadius: 5,
-    width: '80%', 
-    height: '5%',
-    alignSelf: 'center',
+    width: "80%",
+    height: "5%",
+    alignSelf: "center",
     marginBottom: 10,
     backgroundColor: "white"
   },
   placeButton: {
-    alignSelf: 'flex-end',
-    borderRadius: 5, 
-    width: '30%',
-    height: '5%', 
-    marginBottom:10,
+    alignSelf: "center",
+    textAlignVertical: "center",
+    borderRadius: 5,
+    width: "80%",
+    height: 30,
+    marginBottom: 10,
     marginTop: 10,
+    color: "black",
     marginRight: 20,
+    backgroundColor: "violet"
   },
+  textInput: {
+    marginBottom: 15,
+    height: 40,
+    width: 300,
+    borderColor: 'white',
+    borderWidth: 1 
+  }
 });
-
-

@@ -3,7 +3,16 @@ import { ImageBackground,  View, Text, StyleSheet} from "react-native";
 import { Container, Content, Card, CardItem, Thumbnail, Button, Icon, Item, Footer, FooterTab} from 'native-base';
 
 export class ProfileScreen extends React.Component {
+  constructor(props) {
+    super(props);
+   
+  }
+  componentDidMount() {
+    console.log("hehexd",this.props.navigation.state.params.currentUserInfo);
+    
+  }
   render() {
+
 
     return (
       <Container>
@@ -16,7 +25,7 @@ export class ProfileScreen extends React.Component {
                <View style={{alignSelf: 'center', marginTop:100, width: '75%', height: '80%'}}>
                  <Text style={styles.topText}> Name</Text>
                  <View style={{borderBottomColor: '#7d7171', borderBottomWidth: 1,}}/>
-                 <Text style={styles.baseText}> Dilara</Text>
+                 <Text style={styles.baseText}>Dilara</Text>
                 
                  <Text style={styles.topText}>Surname</Text>
                  <View style={{borderBottomColor: '#7d7171', borderBottomWidth: 1,}}/>

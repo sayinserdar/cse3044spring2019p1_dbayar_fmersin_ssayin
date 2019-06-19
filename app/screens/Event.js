@@ -15,7 +15,7 @@ export class EventScreen extends React.Component {
     };
   }
   createNewEvent() {
-    fetch('http://192.168.1.41:3000/event',{
+    fetch('http://172.20.10.11:3000/event',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',

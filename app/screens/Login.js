@@ -9,12 +9,13 @@ export class LoginScreen extends React.Component {
     this.state = { 
 			username: '',
       password_: '',
-      errorMessage: ''
+      errorMessage: '',
+      currentUserInfo: Object
     };
     
   }
   login() {
-    fetch('http://192.168.1.41:3000/user/login',{
+    fetch('http://172.20.10.11:3000/user/login',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -28,8 +29,10 @@ export class LoginScreen extends React.Component {
      })
     .then(response => response.json())
     .then((response) => {
+      
       if(response.length > 0) {
-        this.props.navigation.navigate('Home');
+        this.setState({currentUserInfo: response[0]});
+        this.props.navigation.navigate('Home',{ currentUserInfo: this.state.currentUserInfo} );
       }
       else {
         this.setState({errorMessage: "No user found"});

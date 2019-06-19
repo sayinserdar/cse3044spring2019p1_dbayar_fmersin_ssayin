@@ -15,11 +15,13 @@ export class HomeScreen extends Component {
 constructor(props) {
    super(props);
    this.state = {
-       events: []
+       events: [],
+       currentUserInfo: Object
    }  
 }
   componentDidMount() {
-     fetch('http://192.168.1.41:3000/event',{
+    console.log("hehexd",this.props.navigation.state.params.currentUserInfo);
+     fetch('http://172.20.10.11:3000/event',{
       method: 'GET',
      })
     .then(response => response.json())
@@ -40,7 +42,9 @@ constructor(props) {
         return (
            
             <EventComponent
-            username={item.event_name}
+            key = {item.id}
+            username={item.event_name}     
+            comments= {item.event_comment}       
             imageSource="1"
             likes="101"
             profileSource="1"
@@ -58,8 +62,28 @@ newEvent() {
       <Container style={styles.container}>
 
         <Content>
-       
+        <EventComponent
+           
+           username= "Test Username"     
+           comments= "Comment Şelalesi"       
+           imageSource="2"
+           likes="101"
+           profileSource="1"
+           comments="5"
+           time="6"
+         />
+         <EventComponent
+           
+           username= "Test Username"     
+           comments= "Comment Şelalesi"       
+           imageSource="3"
+           likes="101"
+           profileSource="1"
+           comments="5"
+           time="6"
+         />
         {
+          
                 this.renderButtons()
             }
           <Fab
@@ -81,7 +105,7 @@ newEvent() {
               <Icon name="home" />
               <Text style={styles.barText}> Home</Text>
             </Button>
-            <Button onPress={() => this.props.navigation.navigate("Profile")}>
+            <Button onPress={() => this.props.navigation.navigate("Profile",{ currentUserInfo: this.state.currentUserInfo })}>
               <Icon name="person" />
               <Text style={styles.barText}> Profile</Text>
             </Button>
